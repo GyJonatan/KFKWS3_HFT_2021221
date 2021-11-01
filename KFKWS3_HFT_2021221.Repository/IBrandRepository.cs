@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Repository
 {
-    interface IBrandRepository
+    public interface IBrandRepository : IRepository<Brand>
     {
-        void Create(Brand car);
-        Brand ReadOne(int id);
-        IQueryable<Brand> ReadAll();
-        void Update(Brand car);
-        void Delete(int id);
+        void Update(Brand brand);
+        void ChangeName(int id, string newName);
     }
 }

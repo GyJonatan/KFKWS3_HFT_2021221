@@ -8,39 +8,26 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Repository
 {
-    class BrandRepository : IBrandRepository
+    class BrandRepository : Repository<Brand>, IBrandRepository
     {
-        KFKWS3DbContext context;
-
-        public BrandRepository(KFKWS3DbContext context)
+        public BrandRepository(KFKWS3DbContext context) : base(context) { }     
+        public override void Create(Brand item)
         {
-            this.context = context;
-        }
-
-        public void Create(Brand brand)
-        {
-            context.Brands.Add(brand);
+            context.Brands.Add(item);
             context.SaveChanges();
         }
 
-        public void Delete(int id)
-        {         
+        public override void Delete(int id)
+        {
             Brand brand = ReadOne(id);
 
             context.Brands.Remove(brand);
             context.SaveChanges();
         }
 
-        public Brand ReadOne(int id)
+        public override Brand ReadOne(int id)
         {
-            return context
-                .Brands
-                .FirstOrDefault(x => x.Id == id);
-        }
-
-        public IQueryable<Brand> ReadAll()
-        {
-            return context.Brands;
+            return ReadAll().SingleOrDefault(x => x.Id == id);
         }
 
         public void Update(Brand brand)
@@ -49,11 +36,21 @@ namespace KFKWS3_HFT_2021221.Repository
 
             if (old == null)
             {
-                throw new NullReferenceException();
+                throw new InvalidOperationException($"***ERROR***\nUPDATE BRAND: brand({old.Id}) not found");
             }
 
             old.Id = brand.Id;
             old.Name = brand.Name;
         }
-    }
+        public void ChangeName(int id, string newName)
+        {
+            var brand = ReadOne(id);
+            if (brand == null)
+            {
+                throw new InvalidOperationException($"***ERROR***\nCHANGE BRAND NAME: brand({brand.Id}) not found");
+            }
+            brand.Name = newName;
+            context.SaveChanges();
+        }
+    }    
 }
