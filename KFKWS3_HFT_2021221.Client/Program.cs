@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleTools;
+using System;
 
 namespace KFKWS3_HFT_2021221.Client
 {
@@ -6,7 +7,10 @@ namespace KFKWS3_HFT_2021221.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //var menu = new ConsoleMenu()
+            //    .Add("Using Logic", () => Dosomething(logic))
+            //    .Add("Close", ConsoleMenu.Close);
+            //menu.Show();
         }
     }
 }
