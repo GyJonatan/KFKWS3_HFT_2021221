@@ -8,52 +8,47 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Repository
 {
-    class CarRepository : ICarRepository
+    class CarRepository : Repository<Car>, ICarRepository
     {
-        KFKWS3DbContext context;
-
-        public CarRepository(KFKWS3DbContext context)
+        public CarRepository(KFKWS3DbContext context) : base(context) { }
+        public override void Create(Car item)
         {
-            this.context = context;
-        }
-
-        public void Create(Car car)
-        {
-            context.Cars.Add(car);
+            context.Cars.Add(item);
             context.SaveChanges();
         }
-
-        public void Delete(int id)
+        public override void Delete(int id)
         {
             Car car = ReadOne(id);
 
             context.Cars.Remove(car);
             context.SaveChanges();
         }
-
-        public Car ReadOne(int id)
+        public override Car ReadOne(int id)
         {
-            return context
-                .Cars
-                .FirstOrDefault(x => x.Id == id);
+            return ReadAll().SingleOrDefault(x => x.Id == id);
         }
-
-        public IQueryable<Car> ReadAll()
-        {
-            return context.Cars;
-        }
-
         public void Update(Car car)
         {
             Car old = ReadOne(car.Id);
+
             if (old == null)
             {
-                throw new NullReferenceException();
+                throw new InvalidOperationException($"***ERROR***\nUPDATE CAR: car({old.Id}) not found");
             }
+
             old.Model = car.Model;
             old.BasePrice = car.BasePrice;
             old.BrandId = car.BrandId;
         }
-
+        public void ChangePrice(int id, int newPrice)
+        {
+            var car = ReadOne(id);
+            if (car == null)
+            {
+                throw new InvalidOperationException($"***ERROR***\nCHANGE CAR PRICE: car({car.Id}) not found");
+            }
+            car.BasePrice = newPrice;
+            context.SaveChanges();
+        }
     }
 }
