@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Logic
 {
-    class CarLogic : Logic<Car>, ICarLogic 
+    public class CarLogic : Logic<Car>, ICarLogic 
     {
         public CarLogic(ICarRepository repository) : base(repository) { }        
         public void ChangePrice(int carId, int price)
@@ -31,6 +31,10 @@ namespace KFKWS3_HFT_2021221.Logic
                     };
 
             return q.ToList();
-        }  
+        }
+        public List<Car> GetCarsByBrand(int brand)
+        {
+            return repository.ReadAll().Where(x => x.BrandId == brand).ToList();
+        }
     }
 }

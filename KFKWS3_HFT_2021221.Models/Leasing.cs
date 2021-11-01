@@ -27,5 +27,23 @@ namespace KFKWS3_HFT_2021221.Models
         {
             Cars = new HashSet<Car>();
         }
+        public override string ToString()
+        {
+            return $"#{Id}: {CompanyName}";
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj is Leasing)
+            {
+                Leasing other = obj as Leasing;
+                return this.Id == other.Id &&
+                       this.CompanyName == other.CompanyName;
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return Id;
+        }
     }
 }

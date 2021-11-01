@@ -28,6 +28,26 @@ namespace KFKWS3_HFT_2021221.Models
 
         [NotMapped]
         public virtual Brand Brand { get; set; }
-        
+
+        public override string ToString()
+        {
+            return $"#{Id}: {Model} of Brand #{BrandId}";
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj is Car)
+            {
+                Car other = obj as Car;
+                return this.Id == other.Id &&
+                       this.Model == other.Model &&
+                       this.BasePrice == other.BasePrice &&
+                       this.BrandId == other.BrandId;
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return Id;
+        }
     }
 }

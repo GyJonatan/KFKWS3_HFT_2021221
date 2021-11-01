@@ -52,5 +52,14 @@ namespace KFKWS3_HFT_2021221.Repository
             brand.Name = newName;
             context.SaveChanges();
         }
+
+        public int Add(string name)
+        {
+            Brand brand = new Brand();
+            brand.Name = name;
+            context.Set<Brand>().Add(brand);
+            context.SaveChanges();
+            return brand.Id;
+        }
     }    
 }
