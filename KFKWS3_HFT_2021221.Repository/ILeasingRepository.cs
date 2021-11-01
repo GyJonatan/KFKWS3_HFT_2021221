@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Repository
 {
-    interface ILeasingRepository
+    public interface ILeasingRepository : IRepository<Leasing>
     {
-        void Create(Leasing car);
-        Leasing ReadOne(int id);
-        IQueryable<Leasing> ReadAll();
         void Update(Leasing car);
-        void Delete(int id);
+        void ChangeCompanyName(int id, string newName);
+
     }
 }

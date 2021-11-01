@@ -8,52 +8,46 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Repository
 {
-    class LeasingRepository : ILeasingRepository
+    class LeasingRepository : Repository<Leasing>, ILeasingRepository
     {
-        KFKWS3DbContext context;
-
-        public LeasingRepository(KFKWS3DbContext context)
+        public LeasingRepository(KFKWS3DbContext context) : base(context) { }
+        public override void Create(Leasing item)
         {
-            this.context = context;
-        }
-
-        public void Create(Leasing leasing)
-        {
-            context.Leasings.Add(leasing);
+            context.Leasings.Add(item);
             context.SaveChanges();
         }
-
-        public void Delete(int id)
+        public override void Delete(int id)
         {
             Leasing leasing = ReadOne(id);
 
             context.Leasings.Remove(leasing);
             context.SaveChanges();
         }
-
-        public Leasing ReadOne(int id)
+        public override Leasing ReadOne(int id)
         {
-            return context
-                .Leasings
-                .FirstOrDefault(x => x.Id == id);
+            return ReadAll().SingleOrDefault(x => x.Id == id);
         }
-
-        public IQueryable<Leasing> ReadAll()
-        {
-            return context.Leasings;
-        }
-
         public void Update(Leasing leasing)
         {
             Leasing old = ReadOne(leasing.Id);
 
             if (old == null)
             {
-                throw new NullReferenceException();
+                throw new InvalidOperationException($"***ERROR***\nUPDATE LEASING0: leasing({old.Id}) not found");
             }
 
             old.Id = leasing.Id;
             old.CompanyName = leasing.CompanyName;
+        }
+        public void ChangeCompanyName(int id, string newName)
+        {
+            var leasing = ReadOne(id);
+            if (leasing == null)
+            {
+                throw new InvalidOperationException($"***ERROR***\nCHANGE COMPANY NAME: leasing({leasing.Id}) not found");
+            }
+            leasing.CompanyName = newName;
+            context.SaveChanges();
         }
     }
 }
