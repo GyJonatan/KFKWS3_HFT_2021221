@@ -21,11 +21,11 @@ namespace KFKWS3_HFT_2021221.Models
         public string CompanyName { get; set; }
         
         [NotMapped]
-        public virtual ICollection<Car> Cars { get; set; }
+        public virtual ICollection<Brand> Brands { get; set; }
 
         public Leasing()
         {
-            Cars = new HashSet<Car>();
+            Brands = new HashSet<Brand>();
         }
         public override string ToString()
         {

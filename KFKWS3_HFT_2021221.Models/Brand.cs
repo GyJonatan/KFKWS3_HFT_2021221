@@ -23,6 +23,10 @@ namespace KFKWS3_HFT_2021221.Models
         [NotMapped]
         public virtual ICollection<Car> Cars { get; set; }
 
+        [ForeignKey(nameof(Leasing))]
+        public int LeasingId { get; set; }
+        public virtual Leasing Leasing { get; set; }
+
         public Brand()
         {
             Cars = new HashSet<Car>();
