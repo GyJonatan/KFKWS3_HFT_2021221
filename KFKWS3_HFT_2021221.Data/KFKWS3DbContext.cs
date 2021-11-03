@@ -28,18 +28,14 @@ namespace KFKWS3_HFT_2021221.Data
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //egy a többhöz kapcsolatot állítunk fel két esetben
-            //a car "egy", ami a brandben többször szerepel, mert a brandnek ugye több autója van
-            //lejjebb meg egy brand, de a lízingelő több brandet is bérelhet,
-            //ezért ez ugyanúgy egy a többhöz kapcsolat
+        {            
 
             modelBuilder.Entity<Car>(entity =>
             {
-                entity.HasOne(car => car.Brand)//beállítja, hogy ez az egy
-                      .WithMany(brand => brand.Cars)//beállítja, hogy ez a több
-                      .HasForeignKey(car => car.BrandId)//megadja az idegen kulcsot, ami a brand elsődleges kulcsa
-                      .OnDelete(DeleteBehavior.ClientSetNull);//ha törlik, akkor a leszármazottait nullázza
+                entity.HasOne(car => car.Brand)
+                      .WithMany(brand => brand.Cars)
+                      .HasForeignKey(car => car.BrandId)
+                      .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Brand>(entity =>
