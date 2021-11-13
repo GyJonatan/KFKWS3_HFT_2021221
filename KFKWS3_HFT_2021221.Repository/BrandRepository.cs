@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Repository
 {
-    class BrandRepository : Repository<Brand>, IBrandRepository
+    public class BrandRepository : Repository<Brand>, IBrandRepository
     {
         public BrandRepository(KFKWS3DbContext context) : base(context) { }     
         public override void Create(Brand item)

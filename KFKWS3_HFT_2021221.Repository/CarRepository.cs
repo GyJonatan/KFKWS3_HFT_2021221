@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Repository
 {
-    class CarRepository : Repository<Car>, ICarRepository
+    public class CarRepository : Repository<Car>, ICarRepository
     {
         public CarRepository(KFKWS3DbContext context) : base(context) { }
         public override void Create(Car item)

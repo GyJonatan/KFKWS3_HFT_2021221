@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Repository
 {
-    class LeasingRepository : Repository<Leasing>, ILeasingRepository
+    public class LeasingRepository : Repository<Leasing>, ILeasingRepository
     {
         public LeasingRepository(KFKWS3DbContext context) : base(context) { }
         public override void Create(Leasing item)
