@@ -22,5 +22,19 @@ namespace KFKWS3_HFT_2021221.Logic
             //It'll show the name of the company that pays the most for it's leased cars.
             return null; //for the meantime the result is null.
         }
+
+        //useful for later reference
+
+        //public static void AddToCompanyList<T>(this Leasing leasing, Company company)
+        //{
+        //    if (!leasing.Companies.Contains(company))
+        //    {
+        //        leasing.Companies.Add(company);
+        //    }
+        //    else
+        //    {
+        //        throw new InvalidOperationException("Company is already on the list");
+        //    }
+        //}
     }
 }

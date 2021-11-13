@@ -25,6 +25,8 @@ namespace KFKWS3_HFT_2021221.Models
 
         [ForeignKey(nameof(Leasing))]
         public int LeasingId { get; set; }
+
+        [NotMapped]
         public virtual Leasing Leasing { get; set; }
 
         public Brand()

@@ -18,18 +18,22 @@ namespace KFKWS3_HFT_2021221.Models
         
         [MaxLength(100)]
         [Required]
-        public string CompanyName { get; set; }
-        
+        public List<Company> Companies { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
         [NotMapped]
         public virtual ICollection<Brand> Brands { get; set; }
 
         public Leasing()
         {
             Brands = new HashSet<Brand>();
+            Companies = new List<Company>();
         }
         public override string ToString()
         {
-            return $"#{Id}: {CompanyName}";
+            return $"#{Id}: {Name}";
         }
         public override bool Equals(object obj)
         {
@@ -37,13 +41,18 @@ namespace KFKWS3_HFT_2021221.Models
             {
                 Leasing other = obj as Leasing;
                 return this.Id == other.Id &&
-                       this.CompanyName == other.CompanyName;
+                       this.Name == other.Name;
             }
             return false;
         }
         public override int GetHashCode()
         {
             return Id;
+        }
+
+        public static string GetInfo(List<Company> list, string name)
+        {
+            return list.Find(x => x.Name == name).Name;
         }
     }
 }

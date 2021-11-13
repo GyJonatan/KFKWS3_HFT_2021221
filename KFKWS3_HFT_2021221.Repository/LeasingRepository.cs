@@ -37,7 +37,7 @@ namespace KFKWS3_HFT_2021221.Repository
             }
 
             old.Id = leasing.Id;
-            old.CompanyName = leasing.CompanyName;
+            old.Name = leasing.Name;
         }
         public void ChangeCompanyName(int id, string newName)
         {
@@ -46,7 +46,7 @@ namespace KFKWS3_HFT_2021221.Repository
             {
                 throw new InvalidOperationException($"***ERROR***\nCHANGE COMPANY NAME: leasing({leasing.Id}) not found");
             }
-            leasing.CompanyName = newName;
+            leasing.Name = newName;
             context.SaveChanges();
         }
     }

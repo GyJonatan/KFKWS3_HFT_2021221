@@ -1,6 +1,7 @@
 ﻿using KFKWS3_HFT_2021221.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 
 namespace KFKWS3_HFT_2021221.Data
 {
@@ -46,35 +47,49 @@ namespace KFKWS3_HFT_2021221.Data
                       .OnDelete(DeleteBehavior.NoAction);
             });
 
-            Brand bmw = new Brand() { Id = 1, Name = "BMW" };
-            Brand ford = new Brand() { Id = 2, Name = "Ford" };
-            Brand volkswagen = new Brand() { Id = 3, Name = "Volkswagen" };
-            Brand volvo = new Brand() { Id = 4, Name = "Volvo" };
 
-            Car bmw_1 = new Car() { Id = 1, BrandId = bmw.Id, BasePrice = 10000, Model = "I3" };
-            Car bmw_2 = new Car() { Id = 2, BrandId = bmw.Id, BasePrice = 15000, Model = "M3" };
-            Car bmw_3 = new Car() { Id = 3, BrandId = bmw.Id, BasePrice = 30000, Model = "X3" };
-            Car ford_1 = new Car() { Id = 4, BrandId = ford.Id, BasePrice = 10000, Model = "Focus" };
-            Car ford_2 = new Car() { Id = 5, BrandId = ford.Id, BasePrice = 20000, Model = "CMax" };
-            Car ford_3 = new Car() { Id = 6, BrandId = ford.Id, BasePrice = 26000, Model = "Mondeo" };
-            Car volkswagen_1 = new Car() { Id = 7, BrandId = volkswagen.Id, BasePrice = 8000, Model = "Polo" };
-            Car volkswagen_2 = new Car() { Id = 8, BrandId = volkswagen.Id, BasePrice = 18000, Model = "Passat" };
-            Car volkswagen_3 = new Car() { Id = 9, BrandId = volkswagen.Id, BasePrice = 28000, Model = "Arteon" };
-            Car volvo_1 = new Car() { Id = 10, BrandId = volvo.Id, BasePrice = 20000, Model = "XC30" };
-            Car volvo_2 = new Car() { Id = 11, BrandId = volvo.Id, BasePrice = 25000, Model = "XC60" };
-            Car volvo_3 = new Car() { Id = 12, BrandId = volvo.Id, BasePrice = 30000, Model = "XC90" };
 
-            Leasing telekom = new Leasing() { Id = 1, CompanyName = "Telekom" };
-            Leasing vodafone = new Leasing() { Id = 2, CompanyName = "Vodafone" };
-            Leasing telenor = new Leasing() { Id = 3, CompanyName = "Telenor" };
+            List<Brand> brandList = new List<Brand>()
+            {
+                new Brand() { Id = 1, Name = "BMW" },
+                new Brand() { Id = 2, Name = "Ford" },
+                new Brand() { Id = 3, Name = "Volkswagen" },
+                new Brand() { Id = 4, Name = "Volvo" }
+            };
 
-            modelBuilder.Entity<Brand>().HasData(bmw, ford, volkswagen, volvo);
-            modelBuilder.Entity<Car>().HasData(
-                bmw_1, bmw_2, bmw_3,
-                ford_1, ford_2, ford_3,
-                volkswagen_1, volkswagen_2, volkswagen_3,
-                volvo_1, volvo_2, volvo_3);
-            modelBuilder.Entity<Leasing>().HasData(telekom, vodafone, telenor);
+            List<Car> carList = new List<Car>()
+            {
+                new Car() { Id = 1, BrandId = GetBrandId(brandList,"BMW"), BasePrice = 10000, Model = "I3" },
+                new Car() { Id = 2, BrandId = GetBrandId(brandList,"BMW"), BasePrice = 15000, Model = "M3" },
+                new Car() { Id = 3, BrandId = GetBrandId(brandList,"BMW"), BasePrice = 30000, Model = "X3" },
+                new Car() { Id = 4, BrandId = GetBrandId(brandList,"Ford"), BasePrice = 10000, Model = "Focus" },
+                new Car() { Id = 5, BrandId = GetBrandId(brandList,"Ford"), BasePrice = 20000, Model = "CMax" },
+                new Car() { Id = 6, BrandId = GetBrandId(brandList,"Ford"), BasePrice = 26000, Model = "Mondeo" },
+                new Car() { Id = 7, BrandId = GetBrandId(brandList,"Volkswagen"), BasePrice = 8000, Model = "Polo" },
+                new Car() { Id = 8, BrandId = GetBrandId(brandList,"Volkswagen"), BasePrice = 18000, Model = "Passat" },
+                new Car() { Id = 9, BrandId = GetBrandId(brandList,"Volkswagen"), BasePrice = 28000, Model = "Arteon" },
+                new Car() { Id = 10, BrandId = GetBrandId(brandList,"Volvo"), BasePrice = 20000, Model = "XC40" },
+                new Car() { Id = 11, BrandId = GetBrandId(brandList,"Volvo"), BasePrice = 25000, Model = "XC60" },
+                new Car() { Id = 12, BrandId = GetBrandId(brandList,"Volvo"), BasePrice = 30000, Model = "XC90" }
+            };
+
+            List<Leasing> leasingList = new List<Leasing>()
+            {
+                new Leasing() { Id = 1, Name = "AAA Auto" },
+                new Leasing() { Id = 2, Name = "Mr. Rent" },
+                new Leasing() { Id = 3, Name = "CarRental" }
+            };
+            
+
+
+            modelBuilder.Entity<Brand>().HasData(brandList);
+            modelBuilder.Entity<Car>().HasData(carList);
+            modelBuilder.Entity<Leasing>().HasData(leasingList);
+        }
+
+        public static int GetBrandId(List<Brand> list, string name)
+        {
+            return list.Find(x => x.Name == name).Id;
         }
 
     }
