@@ -48,37 +48,40 @@ namespace KFKWS3_HFT_2021221.Data
             });
 
 
+            List<Leasing> leasingList = new List<Leasing>()
+            {
+                new Leasing() { Id = 1, Name = "AAA Auto", Budget = 10000000 },
+                new Leasing() { Id = 2, Name = "Mr. Rent", Budget = 5000000 },
+                new Leasing() { Id = 3, Name = "CarRental", Budget = 2500000 }
+            };
+
 
             List<Brand> brandList = new List<Brand>()
             {
-                new Brand() { Id = 1, Name = "BMW" },
-                new Brand() { Id = 2, Name = "Ford" },
-                new Brand() { Id = 3, Name = "Volkswagen" },
-                new Brand() { Id = 4, Name = "Volvo" }
+                new Brand() { Id = 1, Name = "BMW", LeasingId = leasingList.Find(x => x.Name == "AAA Auto").Id },
+                new Brand() { Id = 2, Name = "Ford", LeasingId = leasingList.Find(x => x.Name == "AAA Auto").Id },
+                new Brand() { Id = 3, Name = "Volkswagen", LeasingId = leasingList.Find(x => x.Name == "Mr. Rent").Id },
+                new Brand() { Id = 4, Name = "Volvo", LeasingId = leasingList.Find(x => x.Name == "CarRental").Id }
             };
+
 
             List<Car> carList = new List<Car>()
             {
-                new Car() { Id = 1, BrandId = GetBrandId(brandList,"BMW"), BasePrice = 10000, Model = "I3" },
-                new Car() { Id = 2, BrandId = GetBrandId(brandList,"BMW"), BasePrice = 15000, Model = "M3" },
-                new Car() { Id = 3, BrandId = GetBrandId(brandList,"BMW"), BasePrice = 30000, Model = "X3" },
-                new Car() { Id = 4, BrandId = GetBrandId(brandList,"Ford"), BasePrice = 10000, Model = "Focus" },
-                new Car() { Id = 5, BrandId = GetBrandId(brandList,"Ford"), BasePrice = 20000, Model = "CMax" },
-                new Car() { Id = 6, BrandId = GetBrandId(brandList,"Ford"), BasePrice = 26000, Model = "Mondeo" },
-                new Car() { Id = 7, BrandId = GetBrandId(brandList,"Volkswagen"), BasePrice = 8000, Model = "Polo" },
-                new Car() { Id = 8, BrandId = GetBrandId(brandList,"Volkswagen"), BasePrice = 18000, Model = "Passat" },
-                new Car() { Id = 9, BrandId = GetBrandId(brandList,"Volkswagen"), BasePrice = 28000, Model = "Arteon" },
-                new Car() { Id = 10, BrandId = GetBrandId(brandList,"Volvo"), BasePrice = 20000, Model = "XC40" },
-                new Car() { Id = 11, BrandId = GetBrandId(brandList,"Volvo"), BasePrice = 25000, Model = "XC60" },
-                new Car() { Id = 12, BrandId = GetBrandId(brandList,"Volvo"), BasePrice = 30000, Model = "XC90" }
+                new Car() { Id = 1, BrandId = brandList.Find(x => x.Name == "BMW").Id, BasePrice = 10000, Model = "I3" },
+                new Car() { Id = 2, BrandId = brandList.Find(x => x.Name == "BMW").Id, BasePrice = 15000, Model = "M3" },
+                new Car() { Id = 3, BrandId = brandList.Find(x => x.Name == "BMW").Id, BasePrice = 30000, Model = "X3" },
+                new Car() { Id = 4, BrandId = brandList.Find(x => x.Name == "Ford").Id, BasePrice = 10000, Model = "Focus" },
+                new Car() { Id = 5, BrandId = brandList.Find(x => x.Name == "Ford").Id, BasePrice = 20000, Model = "CMax" },
+                new Car() { Id = 6, BrandId = brandList.Find(x => x.Name == "Ford").Id, BasePrice = 26000, Model = "Mondeo" },
+                new Car() { Id = 7, BrandId = brandList.Find(x => x.Name == "Ford").Id, BasePrice = 8000, Model = "Polo" },
+                new Car() { Id = 8, BrandId = brandList.Find(x => x.Name == "Volkswagen").Id, BasePrice = 18000, Model = "Passat" },
+                new Car() { Id = 9, BrandId = brandList.Find(x => x.Name == "Volkswagen").Id, BasePrice = 28000, Model = "Arteon" },
+                new Car() { Id = 10, BrandId = brandList.Find(x => x.Name == "Volvo").Id, BasePrice = 20000, Model = "XC40" },
+                new Car() { Id = 11, BrandId = brandList.Find(x => x.Name == "Volvo").Id, BasePrice = 25000, Model = "XC60" },
+                new Car() { Id = 12, BrandId = brandList.Find(x => x.Name == "Volvo").Id, BasePrice = 30000, Model = "XC90" }
             };
 
-            List<Leasing> leasingList = new List<Leasing>()
-            {
-                new Leasing() { Id = 1, Name = "AAA Auto" },
-                new Leasing() { Id = 2, Name = "Mr. Rent" },
-                new Leasing() { Id = 3, Name = "CarRental" }
-            };
+
             
 
 
@@ -86,11 +89,5 @@ namespace KFKWS3_HFT_2021221.Data
             modelBuilder.Entity<Car>().HasData(carList);
             modelBuilder.Entity<Leasing>().HasData(leasingList);
         }
-
-        public static int GetBrandId(List<Brand> list, string name)
-        {
-            return list.Find(x => x.Name == name).Id;
-        }
-
     }
 }

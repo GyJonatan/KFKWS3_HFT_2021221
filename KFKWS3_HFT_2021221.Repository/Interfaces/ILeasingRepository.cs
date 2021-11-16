@@ -9,7 +9,7 @@ namespace KFKWS3_HFT_2021221.Repository
 {
     public interface ILeasingRepository : IRepository<Leasing>
     {
-        void Update(Leasing car);
+        void Update(Leasing leasing);
         void ChangeCompanyName(int id, string newName);
 
     }

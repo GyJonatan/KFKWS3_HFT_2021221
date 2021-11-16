@@ -51,7 +51,7 @@ namespace KFKWS3_HFT_2021221.Test
             brandRepository.Setup(x => x.Add(It.IsAny<string>())).Returns(42);
             BrandLogic logic = new BrandLogic(brandRepository.Object);
 
-            int idNumber = logic.AddBrand("BMW");
+            int idNumber = logic.Add("BMW");
 
             Assert.That(idNumber, Is.EqualTo(42));
             brandRepository.Verify(x => x.Add("BMW"), Times.Once);

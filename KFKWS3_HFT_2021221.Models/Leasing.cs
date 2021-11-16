@@ -15,10 +15,9 @@ namespace KFKWS3_HFT_2021221.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("leasing_id", TypeName = "int")]
         public int Id { get; set; }
-        
-        [MaxLength(100)]
-        [Required]
-        public List<Company> Companies { get; set; }
+
+        [Range(0,10000000)]
+        public int Budget { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -29,8 +28,8 @@ namespace KFKWS3_HFT_2021221.Models
         public Leasing()
         {
             Brands = new HashSet<Brand>();
-            Companies = new List<Company>();
         }
+
         public override string ToString()
         {
             return $"#{Id}: {Name}";
@@ -48,11 +47,6 @@ namespace KFKWS3_HFT_2021221.Models
         public override int GetHashCode()
         {
             return Id;
-        }
-
-        public static string GetInfo(List<Company> list, string name)
-        {
-            return list.Find(x => x.Name == name).Name;
         }
     }
 }
