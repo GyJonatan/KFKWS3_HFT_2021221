@@ -10,7 +10,11 @@ namespace KFKWS3_HFT_2021221.Logic
 {
     public class CarLogic : Logic<Car>, ICarLogic 
     {
-        public CarLogic(ICarRepository repository) : base(repository) { }        
+        public CarLogic(ICarRepository repository) : base(repository) { }
+        public void Update(Car car)
+        {
+            (repository as ICarRepository).Update(car);
+        }
         public void ChangePrice(int carId, int price)
         {
             (repository as ICarRepository).ChangePrice(carId, price);
@@ -27,7 +31,7 @@ namespace KFKWS3_HFT_2021221.Logic
                     select new AveragesResult
                     {
                         BrandName = grp.Key.Name,
-                        AveragePrice = grp.Average(x => x.BasePrice) ?? 0
+                        AveragePrice = grp.Average(x => x.BasePrice)
                     };
 
             return q.ToList();
@@ -36,9 +40,6 @@ namespace KFKWS3_HFT_2021221.Logic
         {
             return repository.ReadAll().Where(x => x.BrandId == brand).ToList();
         }
-        public void Update(Car car)
-        {
-            (repository as ICarRepository).Update(car);
-        }
+        
     }
 }

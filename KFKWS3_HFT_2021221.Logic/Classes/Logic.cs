@@ -14,6 +14,18 @@ namespace KFKWS3_HFT_2021221.Logic
         {
             this.repository = repository;
         }
+        public void Create(T item)
+        {
+            foreach (var property in item.GetType().GetProperties())
+            {
+                if (property.GetValue(item) == null)
+                {
+                    throw new NullReferenceException($"Creating was unsuccesfull:\t{property.Name} was null.");
+                }
+                
+                repository.Create(item);
+            }
+        }
         public IList<T> ReadAll()
         {
             return repository.ReadAll().ToList();
@@ -21,6 +33,15 @@ namespace KFKWS3_HFT_2021221.Logic
         public T ReadOne(int id)
         {
             return repository.ReadOne(id);
+        }
+        public void Delete(int id)
+        {
+            if (ReadOne(id) == null)
+            {
+                throw new NullReferenceException($"Deleting was unsuccesfull:\t{id} couldn't be found.");
+            }
+            
+            repository.Delete(id);
         }
     }
 }

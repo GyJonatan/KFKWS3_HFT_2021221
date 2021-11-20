@@ -10,7 +10,11 @@ namespace KFKWS3_HFT_2021221.Logic
 {
     public class BrandLogic : Logic<Brand>, IBrandLogic
     {
-        public BrandLogic(IBrandRepository repository) : base(repository) { }
+        public BrandLogic(IBrandRepository repository) : base(repository) { }        
+        public void Update(Brand brand)
+        {
+            (repository as IBrandRepository).Update(brand);
+        }
         public void ChangeName(int carId, string newName)
         {
             (repository as IBrandRepository).ChangeName(carId, newName);
@@ -23,9 +27,6 @@ namespace KFKWS3_HFT_2021221.Logic
         {
             return (repository as IBrandRepository).Add(name);
         }
-        public void Update(Brand brand)
-        {
-            (repository as IBrandRepository).Update(brand);
-        }
+        
     }
 }
