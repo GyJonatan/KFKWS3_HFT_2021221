@@ -1,4 +1,5 @@
-﻿using KFKWS3_HFT_2021221.Repository;
+﻿using KFKWS3_HFT_2021221.Logic.Results;
+using KFKWS3_HFT_2021221.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,7 @@ namespace KFKWS3_HFT_2021221.Logic
         ICarRepository carRepository;
         IBrandRepository brandRepository;
         ILeasingRepository leasingRepository;
-        public TwoTableQueries
-        (ICarRepository carRepository, IBrandRepository brandRepository, ILeasingRepository leasingRepository)
+        public TwoTableQueries(ICarRepository carRepository, IBrandRepository brandRepository, ILeasingRepository leasingRepository)
         {
             this.carRepository = carRepository;
             this.brandRepository = brandRepository;
@@ -21,6 +21,7 @@ namespace KFKWS3_HFT_2021221.Logic
         }
         public IEnumerable<AveragesResult> GetBrandAverages()
         {
+            //gets the average price of each brand
             return (from car in carRepository.ReadAll()
                     join brand in brandRepository.ReadAll() on car.BrandId equals brand.Id
                     let item = new { BrandName = brand.Name, Price = car.BasePrice }
@@ -28,12 +29,14 @@ namespace KFKWS3_HFT_2021221.Logic
                     select new AveragesResult()
                     {
                         BrandName = grp.Key,
-                        AveragePrice = grp.Average(item => item.Price) ?? 0
+                        AveragePrice = grp.Average(item => item.Price)
                     }).ToList();
         }
         //unit test
-        public IEnumerable<MostCarsResult> GetBrandsByPopularity()
+        public IEnumerable<MostCarsResult> GetBrandsByCarCount()
         {
+            //gets the leasings name, brands name and the number of cars this brand has
+            //for each leasee
             return (from brand in brandRepository.ReadAll()
                     join leasing in leasingRepository.ReadAll() on brand.LeasingId equals leasing.Id
                     let item = new { BrandName = brand.Name, NumberOfCars = brand.Cars.Count }
@@ -48,6 +51,8 @@ namespace KFKWS3_HFT_2021221.Logic
         //unit test
         public IEnumerable<BudgetResult> GetDays()
         {
+            //gets how many days could each leasee pay for
+            //if they were to rent every car they can
             return (brandRepository.ReadAll()
                      .Join(leasingRepository.ReadAll(),
                      brand => brand.LeasingId,
@@ -56,7 +61,7 @@ namespace KFKWS3_HFT_2021221.Logic
                      {
                          leasingName = leasing.Name,
                          budget = leasing.Budget,
-                         sumPrice = brand.Cars.Sum(x => x.BasePrice) ?? 0
+                         sumPrice = brand.Cars.Sum(x => x.BasePrice)
                      })
                      .OrderBy(x => x.budget / x.sumPrice)
                      .Select(x => new BudgetResult()
@@ -66,7 +71,23 @@ namespace KFKWS3_HFT_2021221.Logic
                      })).ToList();
         }
 
-        //come up with something
+
+        public IEnumerable<MostExpensiveBrandResult> GetMostExpensiveBrand()
+        {
+            //return every brand name, number of its cars and the sum of the prices of these cars
+            //where the car costs more than 20k
+            return (from car in carRepository.ReadAll()
+                    join brand in brandRepository.ReadAll() on car.BrandId equals brand.Id
+                    let item = new { brand.Name, car.BasePrice, brand.Cars.Count }
+                    group item by item.Name into g
+                    select new MostExpensiveBrandResult()
+                    {
+                        BrandName = g.Key,
+                        NumberOfCars = g.Count(x => x.BasePrice >= 20000),
+                        TotalPrice = g.Where(x => x.BasePrice >= 20000).Sum(x => x.BasePrice)
+                    }).ToList();
+        }
+        
         
 
     }

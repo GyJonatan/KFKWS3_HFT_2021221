@@ -20,8 +20,9 @@ namespace KFKWS3_HFT_2021221.Models
         [MaxLength(100)]
         [Required]
         public string Model { get; set; }
-
-        public int? BasePrice { get; set; }
+        
+        [Required]
+        public int BasePrice { get; set; }
 
         [ForeignKey(nameof(Brand))]
         public int BrandId { get; set; }
