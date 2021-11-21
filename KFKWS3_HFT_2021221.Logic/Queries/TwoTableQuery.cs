@@ -1,4 +1,5 @@
 ﻿using KFKWS3_HFT_2021221.Logic.Results;
+using KFKWS3_HFT_2021221.Models;
 using KFKWS3_HFT_2021221.Repository;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,19 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Logic
 {
-    public class TwoTableQueries
+    public class TwoTableQuery
     {
         ICarRepository carRepository;
         IBrandRepository brandRepository;
         ILeasingRepository leasingRepository;
-        public TwoTableQueries(ICarRepository carRepository, IBrandRepository brandRepository, ILeasingRepository leasingRepository)
+        public TwoTableQuery(ICarRepository carRepository, IBrandRepository brandRepository)
         {
             this.carRepository = carRepository;
+            this.brandRepository = brandRepository;
+        }
+
+        public TwoTableQuery(IBrandRepository brandRepository, ILeasingRepository leasingRepository)
+        {
             this.brandRepository = brandRepository;
             this.leasingRepository = leasingRepository;
         }
@@ -34,19 +40,15 @@ namespace KFKWS3_HFT_2021221.Logic
         }
         //unit test
         public IEnumerable<MostCarsResult> GetBrandsByCarCount()
-        {
-            //gets the leasings name, brands name and the number of cars this brand has
-            //for each leasee
+        {            
             return (from brand in brandRepository.ReadAll()
                     join leasing in leasingRepository.ReadAll() on brand.LeasingId equals leasing.Id
-                    let item = new { BrandName = brand.Name, NumberOfCars = brand.Cars.Count }
-                    orderby item.NumberOfCars descending
                     select new MostCarsResult()
                     {
-                        BrandName = item.BrandName,
+                        BrandName = brand.Name,
                         LeasingName = leasing.Name,
-                        NumberOfCars = item.NumberOfCars
-                    }).ToList();
+                        NumberOfCars = brand.Cars.Count
+                    }).OrderByDescending(x => x.NumberOfCars).ToList();
         }
         //unit test
         public IEnumerable<BudgetResult> GetDays()

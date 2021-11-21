@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KFKWS3_HFT_2021221.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace KFKWS3_HFT_2021221.Logic
         public string BrandName { get; set; }
         public string LeasingName { get; set; }
         public int NumberOfCars { get; set; }
+        
         public override string ToString()
         {
             return $"Leasing: {LeasingName}\t Brand: {BrandName} ({NumberOfCars})";

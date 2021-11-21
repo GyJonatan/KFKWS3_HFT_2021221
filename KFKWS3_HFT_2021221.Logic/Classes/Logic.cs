@@ -16,15 +16,35 @@ namespace KFKWS3_HFT_2021221.Logic
         }
         public void Create(T item)
         {
+
+            
+            
+            //Checks wether any properties are null
+            //Throws exception if so
             foreach (var property in item.GetType().GetProperties())
             {
-                if (property.GetValue(item) == null)
+                if (property.GetValue(item) is null)
                 {
-                    throw new NullReferenceException($"Creating was unsuccesfull:\t{property.Name} was null.");
+                    throw new NullReferenceException
+                        ($"Creating was unsuccesfull:\t{property.Name} was null.");
                 }
-                
-                repository.Create(item);
             }
+
+            //Checks wether the same id is already on the list
+            //Throws exception if so
+            int id = int.Parse(item.GetType().GetProperty("Id").GetValue(item).ToString());
+
+            if (ReadOne(id) is null)
+            {
+                throw new InvalidOperationException
+                    ($"Creating was unsuccesfull:\titem with id[{id}] already exists");
+            }
+
+            //By this point we are sure that the 'item' is good to go,
+            //we can call the repo's create function.
+
+            repository.Create(item);
+
         }
         public IList<T> ReadAll()
         {
@@ -42,6 +62,6 @@ namespace KFKWS3_HFT_2021221.Logic
             }
             
             repository.Delete(id);
-        }
+        }                
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Logic
 {
-    interface IBrandLogic : ILogic<Brand>
+    public interface IBrandLogic : ILogic<Brand>
     {
         void ChangeName(int id, string newName);
         int Add(string name);

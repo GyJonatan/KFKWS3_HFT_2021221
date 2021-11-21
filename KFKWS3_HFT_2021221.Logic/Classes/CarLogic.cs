@@ -10,7 +10,7 @@ namespace KFKWS3_HFT_2021221.Logic
 {
     public class CarLogic : Logic<Car>, ICarLogic 
     {
-        public CarLogic(ICarRepository repository) : base(repository) { }
+        public CarLogic(ICarRepository repository) : base(repository) { }        
         public void Update(Car car)
         {
             (repository as ICarRepository).Update(car);

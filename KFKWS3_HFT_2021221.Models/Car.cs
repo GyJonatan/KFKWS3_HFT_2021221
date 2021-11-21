@@ -17,7 +17,7 @@ namespace KFKWS3_HFT_2021221.Models
         [Column("car_id", TypeName ="int")]
         public int Id { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(20)]
         [Required]
         public string Model { get; set; }
         

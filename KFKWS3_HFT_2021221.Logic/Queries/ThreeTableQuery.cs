@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Logic
 {
-    class ThreeTableQueries
+    class ThreeTableQuery
     {
         ICarRepository carRepository;
         IBrandRepository brandRepository;
         ILeasingRepository leasingRepository;
 
-        public ThreeTableQueries(ICarRepository carRepository, IBrandRepository brandRepository, ILeasingRepository leasingRepository)
+        public ThreeTableQuery(ICarRepository carRepository, IBrandRepository brandRepository, ILeasingRepository leasingRepository)
         {
             this.carRepository = carRepository;
             this.brandRepository = brandRepository;
@@ -46,7 +46,6 @@ namespace KFKWS3_HFT_2021221.Logic
                         Model = car.Model,
                         Price = car.BasePrice
                     }).ToList();
-        }
-
+        }        
     }
 }

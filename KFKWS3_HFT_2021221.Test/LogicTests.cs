@@ -1,6 +1,6 @@
-﻿using KFKWS3_HFT_2021221.Models;
+﻿using KFKWS3_HFT_2021221.Logic;
+using KFKWS3_HFT_2021221.Models;
 using KFKWS3_HFT_2021221.Repository;
-using KFKWS3_HFT_2021221.Logic;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -17,10 +17,13 @@ namespace KFKWS3_HFT_2021221.Test
     [TestFixture]
     public class LogicTests
     {
+
+        Mock<ICarRepository> mockedCarRepository;
+
        [Test] 
        public void TestGetByBrand()
         {
-            Mock<ICarRepository> mockedRepository = new Mock<ICarRepository>(MockBehavior.Loose);
+            mockedCarRepository = new Mock<ICarRepository>(MockBehavior.Loose);
 
             List<Car> cars = new List<Car>
             {
@@ -31,17 +34,17 @@ namespace KFKWS3_HFT_2021221.Test
             };
 
             List<Car> expectedCars = new List<Car>() { cars[0], cars[1] };
-            
-            mockedRepository.Setup(x => x.ReadAll()).Returns(cars.AsQueryable());
-            CarLogic logic = new CarLogic(mockedRepository.Object);
+
+            mockedCarRepository.Setup(x => x.ReadAll()).Returns(cars.AsQueryable());
+            CarLogic logic = new CarLogic(mockedCarRepository.Object);
 
             var result = logic.GetCarsByBrand(1);
 
             Assert.That(result.Count, Is.EqualTo(expectedCars.Count));
             Assert.That(result, Is.EquivalentTo(expectedCars));
 
-            mockedRepository.Verify(x => x.ReadAll(), Times.Once);
-            mockedRepository.Verify(x => x.ReadOne(It.IsAny<int>()), Times.Never);
+            mockedCarRepository.Verify(x => x.ReadAll(), Times.Once);
+            mockedCarRepository.Verify(x => x.ReadOne(It.IsAny<int>()), Times.Never);
         }
 
         [Test]
@@ -55,6 +58,57 @@ namespace KFKWS3_HFT_2021221.Test
 
             Assert.That(idNumber, Is.EqualTo(42));
             brandRepository.Verify(x => x.Add("BMW"), Times.Once);
+        }
+
+        [Test]
+        public void LogicCreateWithNullName()
+        {
+            mockedCarRepository = new Mock<ICarRepository>(MockBehavior.Loose);
+            CarLogic logic = new CarLogic(mockedCarRepository.Object);
+
+            Car NullObject = new Car();
+            Assert.Throws(typeof(NullReferenceException),
+                () => logic.Create(NullObject));
+        }
+
+        [Test]
+        public void LogicCreateWithAlreadyExistingId()
+        {
+            mockedCarRepository = new Mock<ICarRepository>(MockBehavior.Loose);
+            Car car1 = new Car()
+            { 
+                Id = 1,
+                BasePrice = 1,
+                Brand = new Brand(),
+                BrandId = 1,
+                Model = "model"
+            };
+
+            mockedCarRepository.Setup(x => x.Create(car1));
+
+            CarLogic logic = new CarLogic(mockedCarRepository.Object);
+            
+            Assert.Throws(typeof(InvalidOperationException),
+               () => logic.Create(car1));
+
+        }
+
+        [Test]
+        public void LogicDeleteWithWrongId()
+        {
+            mockedCarRepository = new Mock<ICarRepository>(MockBehavior.Loose);
+
+            List<Car> cars = new List<Car>
+            {
+                new Car() { Id = 1 },
+                new Car() { Id = 2 }
+            };
+
+            mockedCarRepository.Setup(x => x.ReadAll()).Returns(cars.AsQueryable());
+            CarLogic logic = new CarLogic(mockedCarRepository.Object);
+
+            Assert.Throws(typeof(NullReferenceException), 
+                () => logic.Delete(12));            
         }
         
     }
