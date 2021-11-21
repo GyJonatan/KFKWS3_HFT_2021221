@@ -63,14 +63,10 @@ namespace KFKWS3_HFT_2021221.Test
             Brand bmw = new Brand() { Id = 1, Name = "BMW", LeasingId = l1.Id };
             Brand ford = new Brand() { Id = 2, Name = "Ford", LeasingId = l2.Id };
 
-
-
-            Car carBmw1 = new Car() { Brand = bmw, BrandId = bmw.Id };
-            Car carBmw2 = new Car() { Brand = bmw, BrandId = bmw.Id };
+                        
             Car carFord = new Car() { Brand = ford, BrandId = ford.Id };
 
-            bmw.Cars.Add(carBmw1);
-            bmw.Cars.Add(carBmw2);
+            
             ford.Cars.Add(carFord);
 
             l1.Brands.Add(bmw);
@@ -82,8 +78,8 @@ namespace KFKWS3_HFT_2021221.Test
 
             expectedBrandByCarCount = new List<MostCarsResult>()
             {
-                new MostCarsResult() { BrandName = "BMW", LeasingName = "leasing1", NumberOfCars = 2 },
-                new MostCarsResult() { BrandName = "Ford", LeasingName = "leasing2", NumberOfCars = 1 }
+                new MostCarsResult() { BrandName = "Ford", LeasingName = "leasing2", NumberOfCars = 1 },
+                new MostCarsResult() { BrandName = "BMW", LeasingName = "leasing1", NumberOfCars = 0 }
             };
 
             leasingRepository.Setup(x => x.ReadAll()).Returns(leasings.AsQueryable());
