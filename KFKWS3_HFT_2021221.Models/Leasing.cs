@@ -20,6 +20,9 @@ namespace KFKWS3_HFT_2021221.Models
         public int Budget { get; set; }
 
         [Required]
+        public string HQLocation { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         [NotMapped]

@@ -7,33 +7,35 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Logic
 {
-    public class MostCarsResult
+    public class CarsWithExtraInfo
     {
         public string BrandName { get; set; }
         public string LeasingName { get; set; }
-        public int NumberOfCars { get; set; }
-        
+        public string Model { get; set; }
+        public int Price { get; set; }
+
         public override string ToString()
         {
-            return $"Leasing: {LeasingName}\t Brand: {BrandName} ({NumberOfCars})";
+            return $"Leasing: {LeasingName}\tBrand: {BrandName}\tModel: {Model} ({Price})";
         }
         public override bool Equals(object obj)
         {
-            if (obj is MostCarsResult)
+            if (obj is CarsWithExtraInfo)
             {
-                MostCarsResult other = obj as MostCarsResult;
+                CarsWithExtraInfo other = obj as CarsWithExtraInfo;
                 return this.BrandName == other.BrandName 
                     && this.LeasingName == other.LeasingName
-                    && this.NumberOfCars == other.NumberOfCars;
+                    && this.Price == other.Price
+                    &&this.Model == other.Model;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         public override int GetHashCode()
         {
-            return BrandName.GetHashCode() + LeasingName.GetHashCode() + NumberOfCars;
+            return BrandName.GetHashCode()
+                 + LeasingName.GetHashCode()
+                 + Model.GetHashCode()
+                 + Price;
         }
     }
 }

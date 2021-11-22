@@ -50,9 +50,9 @@ namespace KFKWS3_HFT_2021221.Data
 
             List<Leasing> leasingList = new List<Leasing>()
             {
-                new Leasing() { Id = 1, Name = "AAA Auto", Budget = 10000000 },
-                new Leasing() { Id = 2, Name = "Mr. Rent", Budget = 5000000 },
-                new Leasing() { Id = 3, Name = "CarRental", Budget = 2500000 }
+                new Leasing() { Id = 1, HQLocation ="Budapest AAA Auto u. 1.", Name = "AAA Auto", Budget = 10000000 },
+                new Leasing() { Id = 2, HQLocation ="Budapest Mr. Rent u. 1.", Name = "Mr. Rent", Budget = 5000000 },
+                new Leasing() { Id = 3, HQLocation ="Debrecen CarRental u. 1.",Name = "CarRental", Budget = 2500000 }
             };
 
 
