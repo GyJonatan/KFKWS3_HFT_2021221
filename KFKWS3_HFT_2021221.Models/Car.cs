@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Models
@@ -28,6 +29,7 @@ namespace KFKWS3_HFT_2021221.Models
         public int BrandId { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public virtual Brand Brand { get; set; }
 
         public override string ToString()

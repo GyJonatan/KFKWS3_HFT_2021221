@@ -1,4 +1,5 @@
-﻿using KFKWS3_HFT_2021221.Models;
+﻿using KFKWS3_HFT_2021221.Logic.Interfaces;
+using KFKWS3_HFT_2021221.Models;
 using KFKWS3_HFT_2021221.Repository;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KFKWS3_HFT_2021221.Logic
 {
-    public class Query
+    public class Query : IQueryLogic
     {
         ICarRepository carRepository;
         IBrandRepository brandRepository;
@@ -101,38 +102,34 @@ namespace KFKWS3_HFT_2021221.Logic
             //returns the leasee's cars (with extra information) ordered by the
             //budget in chosen order
 
-            if (isAscending)
-            {
-                return (from car in carRepository.ReadAll()
-                        join brand in brandRepository.ReadAll()
-                        on car.BrandId equals brand.Id
-                        join leasing in leasingRepository.ReadAll()
-                        on brand.LeasingId equals leasing.Id
-                        orderby leasing.Budget
-                        select new CarsWithExtraInfo
-                        {
-                            LeasingName = leasing.Name,
-                            BrandName = brand.Name,
-                            Model = car.Model,
-                            Price = car.BasePrice
-                        }).ToList();
-            }
-            else
-            {
-                return (from car in carRepository.ReadAll()
-                        join brand in brandRepository.ReadAll()
-                        on car.BrandId equals brand.Id
-                        join leasing in leasingRepository.ReadAll()
-                        on brand.LeasingId equals leasing.Id
-                        orderby leasing.Budget descending
-                        select new CarsWithExtraInfo
-                        {
-                            LeasingName = leasing.Name,
-                            BrandName = brand.Name,
-                            Model = car.Model,
-                            Price = car.BasePrice
-                        }).ToList();
-            }            
+            return (isAscending ?
+                    from car in carRepository.ReadAll()
+                    join brand in brandRepository.ReadAll()
+                    on car.BrandId equals brand.Id
+                    join leasing in leasingRepository.ReadAll()
+                    on brand.LeasingId equals leasing.Id
+                    orderby leasing.Budget
+                    select new CarsWithExtraInfo
+                    {
+                        LeasingName = leasing.Name,
+                        BrandName = brand.Name,
+                        Model = car.Model,
+                        Price = car.BasePrice
+                    }
+                    :
+                    from car in carRepository.ReadAll()
+                    join brand in brandRepository.ReadAll()
+                    on car.BrandId equals brand.Id
+                    join leasing in leasingRepository.ReadAll()
+                    on brand.LeasingId equals leasing.Id
+                    orderby leasing.Budget descending
+                    select new CarsWithExtraInfo
+                    {
+                        LeasingName = leasing.Name,
+                        BrandName = brand.Name,
+                        Model = car.Model,
+                        Price = car.BasePrice
+                    }).ToList();                      
         }
 
         public IEnumerable<Leasing> GetLeaseeThatHasXBrand(string brandName)
