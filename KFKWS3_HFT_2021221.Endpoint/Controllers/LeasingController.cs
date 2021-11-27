@@ -11,20 +11,20 @@ namespace KFKWS3_HFT_2021221.Endpoint.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class BrandController : Controller<Brand>
+    public class LeasingController : Controller<Leasing>
     {
-        public BrandController(IBrandLogic logic) : base(logic) { }
+        public LeasingController(ILeasingLogic logic) : base(logic) { }
 
         [HttpPut]
-        public override void Put([FromBody] Brand item)
+        public override void Put([FromBody] Leasing item)
         {
-            (logic as IBrandLogic).Update(item);
-        }
-        [HttpGet("changename/{id,name}")]
-        public void ChangeName([FromRoute] int id, [FromRoute] string name)
-        {
-            (logic as IBrandLogic).ChangeName(id, name);
+            (logic as ILeasingLogic).Update(item);
         }
 
+        [HttpGet("changecompanyname/{id,name}")]
+        public void ChangeName([FromRoute] int id, [FromRoute] string name)
+        {
+            (logic as ILeasingLogic).ChangeCompanyName(id, name);
+        }
     }
 }
