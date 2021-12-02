@@ -36,12 +36,13 @@ namespace KFKWS3_HFT_2021221.Logic
         public IEnumerable<Leasing> GetAllDetails()
         {
             //lists all leasings inlcuding their brands and the cars of those
-            return (from car in carRepository.ReadAll()
+            var q = (from car in carRepository.ReadAll()
                     join brand in brandRepository.ReadAll()
                     on car.BrandId equals brand.Id
                     join leasing in leasingRepository.ReadAll()
                     on brand.LeasingId equals leasing.Id
-                    select leasing).Distinct().ToList();
+                    select leasing).Distinct();
+            return q;
         }
 
         public IEnumerable<AveragesResult> GetBrandAverages()
@@ -55,7 +56,7 @@ namespace KFKWS3_HFT_2021221.Logic
                     {
                         BrandName = grp.Key,
                         AveragePrice = grp.Average(item => item.Price)
-                    }).ToList();
+                    });
         }
 
         public IEnumerable<CarsWithExtraInfo> GetCarsForLeasee(string leasingName)
@@ -74,7 +75,7 @@ namespace KFKWS3_HFT_2021221.Logic
                         BrandName = brand.Name,
                         Model = car.Model,
                         Price = car.BasePrice
-                    }).ToList();
+                    });
         }
 
         public IEnumerable<CarsWithExtraInfo> GetCarsOverXPrice(int price)
@@ -94,7 +95,7 @@ namespace KFKWS3_HFT_2021221.Logic
                         BrandName = brand.Name,
                         Model = car.Model,
                         Price = car.BasePrice
-                    }).ToList();
+                    });
         }
 
         public IEnumerable<CarsWithExtraInfo> GetCarsOrderedByBudget(bool isAscending)
@@ -129,7 +130,7 @@ namespace KFKWS3_HFT_2021221.Logic
                         BrandName = brand.Name,
                         Model = car.Model,
                         Price = car.BasePrice
-                    }).ToList();                      
+                    });                      
         }
 
         public IEnumerable<Leasing> GetLeaseeThatHasXBrand(string brandName)
@@ -142,7 +143,7 @@ namespace KFKWS3_HFT_2021221.Logic
                     join leasing in leasingRepository.ReadAll()
                     on brand.LeasingId equals leasing.Id
                     where brand.Name == brandName
-                    select leasing).Distinct().ToList();
+                    select leasing).Distinct();
         }
 
         public IEnumerable<CarsWithExtraInfo> GetCarsLeasedInBudapest()
@@ -162,7 +163,7 @@ namespace KFKWS3_HFT_2021221.Logic
                         BrandName = brand.Name,
                         Model = car.Model,
                         Price = car.BasePrice
-                    }).ToList();
+                    });
         }
     }
 }

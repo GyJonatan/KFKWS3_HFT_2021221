@@ -21,47 +21,47 @@ namespace KFKWS3_HFT_2021221.Endpoint.Controllers
         }
 
         
-        //[HttpGet("alldetails")]
-        public IList<Leasing> AllDetails()
+        [HttpGet]
+        public IEnumerable<Leasing> AllDetails()
         {
-            return logic.GetAllDetails().ToList();
+            return logic.GetAllDetails();
         }
 
-        //[HttpGet("brandaverages")]
-        public IList<AveragesResult> BrandAverages()
+        [HttpGet]
+        public IEnumerable<AveragesResult> BrandAverages()
         {
-            return logic.GetBrandAverages().ToList();
+            return logic.GetBrandAverages();
         }
 
         //[HttpGet("carsforleasee/{name}")]
-        public IList<CarsWithExtraInfo> CarsForLeasee([FromRoute] string name)
+        public IEnumerable<CarsWithExtraInfo> CarsForLeasee([FromRoute] string name)
         {
-            return logic.GetCarsForLeasee(name).ToList();
+            return logic.GetCarsForLeasee(name);
         }
 
         //[HttpGet("carsoverxprice/{price}")]
-        public IList<CarsWithExtraInfo> CarsOverXPrice([FromRoute] int price)
+        public IEnumerable<CarsWithExtraInfo> CarsOverXPrice([FromRoute] int price)
         {
-            return logic.GetCarsOverXPrice(price).ToList();
+            return logic.GetCarsOverXPrice(price);
         }
 
         //[HttpGet("carsorderedbybudget/{order}")]
-        public IList<CarsWithExtraInfo> CarsOrderedByBudget([FromRoute] string order)
+        public IEnumerable<CarsWithExtraInfo> CarsOrderedByBudget([FromRoute] string order)
         {
             return order == "asc" ?
-                logic.GetCarsOrderedByBudget(true).ToList() :
-                logic.GetCarsOrderedByBudget(false).ToList();
+                logic.GetCarsOrderedByBudget(true) :
+                logic.GetCarsOrderedByBudget(false);
         }
 
         //[HttpGet("leaseethathasxbrand/{brand}")]
-        public IList<Leasing> LeaseeThatHasXBrand([FromRoute] string brand)
+        public IEnumerable<Leasing> LeaseeThatHasXBrand([FromRoute] string brand)
         {
-            return logic.GetLeaseeThatHasXBrand(brand).ToList();
+            return logic.GetLeaseeThatHasXBrand(brand);
         }
         //[HttpGet("carsleasedinbudapest")]
-        public IList<CarsWithExtraInfo> CarsLeasedInBudapest()
+        public IEnumerable<CarsWithExtraInfo> CarsLeasedInBudapest()
         {
-            return logic.GetCarsLeasedInBudapest().ToList();
+            return logic.GetCarsLeasedInBudapest();
         }
     }
 }

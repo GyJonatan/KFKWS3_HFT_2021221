@@ -39,7 +39,7 @@ namespace KFKWS3_HFT_2021221.Endpoint
             services.AddTransient<ILeasingLogic, LeasingLogic>();
             services.AddTransient<ILeasingRepository, LeasingRepository>();
 
-            services.AddTransient<IQueryLogic, Query>();
+            //services.AddTransient<IQueryLogic, Query>();
             services.AddTransient<KFKWS3DbContext, KFKWS3DbContext>();
         }
 

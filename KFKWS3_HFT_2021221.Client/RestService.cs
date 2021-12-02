@@ -70,7 +70,7 @@ namespace KFKWS3_HFT_2021221.Client
             return item;
         }
 
-        public List<T> GetQuery<T>(string query, string endpoint)
+        public List<T> GetQuery<T>(string query)
         {
             return this.Get<T>($"query/{query}");            
         }

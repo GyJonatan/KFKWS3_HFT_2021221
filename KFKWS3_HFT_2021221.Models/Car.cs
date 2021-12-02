@@ -30,6 +30,7 @@ namespace KFKWS3_HFT_2021221.Models
 
         [NotMapped]
         [JsonIgnore]
+        [CanBeNull]
         public virtual Brand Brand { get; set; }
 
         public override string ToString()

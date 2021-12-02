@@ -29,6 +29,7 @@ namespace KFKWS3_HFT_2021221.Models
 
         [NotMapped]
         [JsonIgnore]
+        [CanBeNull]
         public virtual Leasing Leasing { get; set; }
 
         public Brand()

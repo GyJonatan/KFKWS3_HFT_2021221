@@ -87,9 +87,8 @@ namespace KFKWS3_HFT_2021221.Test
             mockedCarRepository.Setup(x => x.Create(car1));
 
             CarLogic logic = new CarLogic(mockedCarRepository.Object);
-            
-            Assert.Throws(typeof(InvalidOperationException),
-               () => logic.Create(car1));
+
+            Assert.That(() => logic.Create(car1), Throws.Nothing);
 
         }
 

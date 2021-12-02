@@ -31,11 +31,11 @@ namespace KFKWS3_HFT_2021221.Endpoint.Controllers
             return logic.ReadAll();
         }
 
-        //[HttpGet]
-        //public T Get(int id)
-        //{
-        //    return logic.ReadOne(id);
-        //}
+        [HttpGet("{id}")]
+        public T Get(int id)
+        {
+            return logic.ReadOne(id);
+        }
 
         [HttpPut("{item}")]
         public abstract void Put([FromBody] T item);
