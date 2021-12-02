@@ -34,29 +34,27 @@ namespace KFKWS3_HFT_2021221.Endpoint.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<CarsWithExtraInfo> CarsForLeasee([FromRoute] string name)
+        public IEnumerable<CarsWithExtraInfo> CarsForLeasee()
         {
-            return logic.GetCarsForLeasee(name);
+            return logic.GetCarsForLeasee("AAA Auto");
         }
 
         [HttpGet]
-        public IEnumerable<CarsWithExtraInfo> CarsOverXPrice([FromRoute] int price)
+        public IEnumerable<CarsWithExtraInfo> CarsOverXPrice()
         {
-            return logic.GetCarsOverXPrice(price);
+            return logic.GetCarsOverXPrice(8000);
         }
 
         [HttpGet]
-        public IEnumerable<CarsWithExtraInfo> CarsOrderedByBudget([FromRoute] string order)
-        {
-            return order == "asc" ?
-                logic.GetCarsOrderedByBudget(true) :
-                logic.GetCarsOrderedByBudget(false);
+        public IEnumerable<CarsWithExtraInfo> CarsOrderedByBudget()
+        {            
+             return logic.GetCarsOrderedByBudget(true);
         }
 
         [HttpGet]
-        public IEnumerable<Leasing> LeaseeThatHasXBrand([FromRoute] string brand)
+        public IEnumerable<Leasing> LeaseeThatHasXBrand()
         {
-            return logic.GetLeaseeThatHasXBrand(brand);
+            return logic.GetLeaseeThatHasXBrand("BMW");
         }
 
         [HttpGet]
