@@ -1,4 +1,5 @@
 ﻿using KFKWS3_HFT_2021221.Logic;
+using KFKWS3_HFT_2021221.Logic.Interfaces;
 using KFKWS3_HFT_2021221.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,9 @@ namespace KFKWS3_HFT_2021221.Endpoint.Controllers
     [ApiController]
     public class CarController : Controller<Car>
     {
+        
         public CarController(ICarLogic logic) : base(logic) { }
+
 
         [HttpPut]
         public override void Put([FromBody] Car item)
@@ -32,5 +35,6 @@ namespace KFKWS3_HFT_2021221.Endpoint.Controllers
         {
             return (logic as ICarLogic).GetBrandAverages();
         }
+
     }
 }

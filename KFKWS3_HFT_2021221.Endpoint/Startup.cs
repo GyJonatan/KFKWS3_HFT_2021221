@@ -30,17 +30,17 @@ namespace KFKWS3_HFT_2021221.Endpoint
         {
             services.AddControllers();
 
-            services.AddTransient<ICarLogic, CarLogic>();
-            services.AddTransient<ICarRepository, CarRepository>();
+            services.AddSingleton<ICarLogic, CarLogic>();
+            services.AddSingleton<ICarRepository, CarRepository>();
 
-            services.AddTransient<IBrandLogic, BrandLogic>();
-            services.AddTransient<IBrandRepository, BrandRepository>();
+            services.AddSingleton<IBrandLogic, BrandLogic>();
+            services.AddSingleton<IBrandRepository, BrandRepository>();
 
-            services.AddTransient<ILeasingLogic, LeasingLogic>();
-            services.AddTransient<ILeasingRepository, LeasingRepository>();
+            services.AddSingleton<ILeasingLogic, LeasingLogic>();
+            services.AddSingleton<ILeasingRepository, LeasingRepository>();
 
-            //services.AddTransient<IQueryLogic, Query>();
-            services.AddTransient<KFKWS3DbContext, KFKWS3DbContext>();
+            services.AddSingleton<IQueryLogic, Query>();
+            services.AddSingleton<KFKWS3DbContext, KFKWS3DbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

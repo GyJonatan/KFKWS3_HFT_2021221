@@ -33,19 +33,19 @@ namespace KFKWS3_HFT_2021221.Endpoint.Controllers
             return logic.GetBrandAverages();
         }
 
-        //[HttpGet("carsforleasee/{name}")]
+        [HttpGet]
         public IEnumerable<CarsWithExtraInfo> CarsForLeasee([FromRoute] string name)
         {
             return logic.GetCarsForLeasee(name);
         }
 
-        //[HttpGet("carsoverxprice/{price}")]
+        [HttpGet]
         public IEnumerable<CarsWithExtraInfo> CarsOverXPrice([FromRoute] int price)
         {
             return logic.GetCarsOverXPrice(price);
         }
 
-        //[HttpGet("carsorderedbybudget/{order}")]
+        [HttpGet]
         public IEnumerable<CarsWithExtraInfo> CarsOrderedByBudget([FromRoute] string order)
         {
             return order == "asc" ?
@@ -53,12 +53,13 @@ namespace KFKWS3_HFT_2021221.Endpoint.Controllers
                 logic.GetCarsOrderedByBudget(false);
         }
 
-        //[HttpGet("leaseethathasxbrand/{brand}")]
+        [HttpGet]
         public IEnumerable<Leasing> LeaseeThatHasXBrand([FromRoute] string brand)
         {
             return logic.GetLeaseeThatHasXBrand(brand);
         }
-        //[HttpGet("carsleasedinbudapest")]
+
+        [HttpGet]
         public IEnumerable<CarsWithExtraInfo> CarsLeasedInBudapest()
         {
             return logic.GetCarsLeasedInBudapest();
