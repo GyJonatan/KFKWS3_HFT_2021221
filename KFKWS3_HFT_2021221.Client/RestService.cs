@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KFKWS3_HFT_2021221.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -12,8 +13,9 @@ namespace KFKWS3_HFT_2021221.Client
     {
         HttpClient client;
 
-        public RestService(string baseurl)
+        public RestService(string baseurl = null)
         {
+            if(baseurl != null)
             Init(baseurl);
         }
 
@@ -45,7 +47,7 @@ namespace KFKWS3_HFT_2021221.Client
             return items;
         }
 
-        //ez miben más, mint a .Take(1) ???
+        
         public T GetSingle<T>(string endpoint)
         {
             T item = default(T);
@@ -66,6 +68,11 @@ namespace KFKWS3_HFT_2021221.Client
                 item = response.Content.ReadAsAsync<T>().GetAwaiter().GetResult();
             }
             return item;
+        }
+
+        public List<T> GetQuery<T>(string query, string endpoint)
+        {
+            return this.Get<T>($"query/{query}");            
         }
 
         public void Post<T>(T item, string endpoint)

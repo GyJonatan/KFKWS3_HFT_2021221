@@ -61,8 +61,6 @@ namespace KFKWS3_HFT_2021221.Endpoint
             {
                 endpoints.MapControllers();
             });
-            
-            //app.UseOwin(x => x.UseNancy());
         }
     }
 }

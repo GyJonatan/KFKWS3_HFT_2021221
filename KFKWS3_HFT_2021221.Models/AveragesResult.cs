@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace KFKWS3_HFT_2021221.Logic
+namespace KFKWS3_HFT_2021221.Models
 {
     public class AveragesResult
-    {
-        public string BrandName { get; set; }
+    {        public string BrandName { get; set; }
         public double AveragePrice { get; set; }
         public override string ToString()
         {
@@ -27,6 +29,5 @@ namespace KFKWS3_HFT_2021221.Logic
         {
             return BrandName.GetHashCode() + (int)AveragePrice;
         }
-
     }
 }

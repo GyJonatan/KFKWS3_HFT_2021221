@@ -21,10 +21,7 @@ namespace KFKWS3_HFT_2021221.Endpoint
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder
-                        //.UseContentRoot(Directory.GetCurrentDirectory())
-                        //.UseKestrel(o => o.AllowSynchronousIO = true)
-                        .UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>();
                 });
         
     }

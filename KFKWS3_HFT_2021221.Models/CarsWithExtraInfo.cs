@@ -1,11 +1,10 @@
-﻿using KFKWS3_HFT_2021221.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KFKWS3_HFT_2021221.Logic
+namespace KFKWS3_HFT_2021221.Models
 {
     public class CarsWithExtraInfo
     {
@@ -23,10 +22,10 @@ namespace KFKWS3_HFT_2021221.Logic
             if (obj is CarsWithExtraInfo)
             {
                 CarsWithExtraInfo other = obj as CarsWithExtraInfo;
-                return this.BrandName == other.BrandName 
+                return this.BrandName == other.BrandName
                     && this.LeasingName == other.LeasingName
                     && this.Price == other.Price
-                    &&this.Model == other.Model;
+                    && this.Model == other.Model;
             }
             return false;
         }

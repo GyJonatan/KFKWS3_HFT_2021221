@@ -26,5 +26,10 @@ namespace KFKWS3_HFT_2021221.Endpoint.Controllers
             (logic as IBrandLogic).ChangeName(id, name);
         }
 
+        [HttpGet("add/{name}")]
+        public void Add([FromRoute] string name)
+        {
+            (logic as IBrandLogic).Add(name);
+        }
     }
 }

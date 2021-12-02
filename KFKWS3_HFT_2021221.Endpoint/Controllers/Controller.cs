@@ -37,7 +37,7 @@ namespace KFKWS3_HFT_2021221.Endpoint.Controllers
         //    return logic.ReadOne(id);
         //}
 
-        [HttpPut]
+        [HttpPut("{item}")]
         public abstract void Put([FromBody] T item);
 
         [HttpDelete("{id}")]
