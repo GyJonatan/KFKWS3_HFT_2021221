@@ -1,5 +1,6 @@
 A Model osztályokban legyenek letárolva az idegen kulcsok és használjon Navigation Propertyket LazyLoader-rel ahol lehet! 
 A Linq lekérdezésekben akkor használjunk join-t, ha elkerülhetetlen;
+
   • Az mdf és ldf fájlokat a Data rétegben kell létrehozni, ahol be kell állítani a Build Action-t
     Content értékre, a Copy to Output Directory lehetőséget pedig Copy always értékre;
   • Állítson be olyan Connection String értéket, amely a mindenkori munkakönyvtárban lévő lokális
