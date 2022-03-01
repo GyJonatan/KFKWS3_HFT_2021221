@@ -1,0 +1,46 @@
+﻿<Window x:Class="WpfClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfClient"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" x:Name="mainWindow">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="carCrud" Content="Car CRUDs" Grid.Row="0" Click="CarCrud_Click"/>
+            <Button x:Name="brandCrud" Content="Brand CRUDs" Grid.Row="1" Click="brandCrud_Click"/>
+            <Button x:Name="leasingCrud" Content="Leasing CRUDs" Grid.Row="2" Click="leasingCrud_Click"/>
+            <Button x:Name="queries" Content="Queries" Grid.Row="3" Click="queries_Click"/>
+            <Button x:Name="exitButton" Content="Exit" Grid.Row="4" Click="exitButton_Click"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="createButton" Content="Create" Grid.Column="0" Visibility="Hidden" Click="createButton_Click"/>
+            <Button x:Name="readButton" Content="Read/Read all" Grid.Column="1" Visibility="Hidden" Click="readButton_Click"/>
+            <Button x:Name="updateButton" Content="Update" Grid.Column="2" Visibility="Hidden" Click="updateButton_Click"/>
+            <Button x:Name="deleteButton" Content="Delete" Grid.Column="3" Visibility="Hidden" Click="deleteButton_Click"/>
+        </Grid>
+        <TextBox x:Name="displayText" Grid.Row="0" Grid.Column="1" IsReadOnly="True"/>
+    </Grid>
+</Window>
